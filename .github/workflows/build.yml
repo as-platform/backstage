@@ -1,0 +1,69 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    runs-on: [self-hosted, homelab]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+
+      - name: Install
+        run: |
+          corepack enable
+          yarn install --immutable
+
+      - name: Typecheck
+        run: yarn tsc
+
+      - name: Lint
+        run: yarn lint:all
+
+      - name: Test
+        run: yarn test:all
+
+  security:
+    uses: as-platform/ci-templates/.github/workflows/security.yml@main
+
+  image:
+    needs:
+      - ci
+      - security
+    uses: as-platform/ci-templates/.github/workflows/image-build.yml@main
+    with:
+      name: backstage
+      registry: ${{ vars.ZOT_REGISTRY }}
+      push: ${{ github.event_name == 'push' }}
+    secrets:
+      ZOT_USER: ${{ secrets.ZOT_USER }}
+      ZOT_PASSWORD: ${{ secrets.ZOT_PASSWORD }}
+      COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+      COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: image
+    uses: as-platform/ci-templates/.github/workflows/deploy-bump.yml@main
+    with:
+      app: backstage
+      tag: ${{ needs.image.outputs.tag }}
+      values-file: infra/backstage/values.yaml
+      platform-repo: as-platform/k3s
+      mode: commit
+    secrets:
+      PLATFORM_TOKEN: ${{ secrets.PLATFORM_TOKEN }}
