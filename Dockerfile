@@ -30,5 +30,6 @@ WORKDIR /app
 COPY --from=deps /home/node/app/ /app/
 COPY app-config.yaml app-config.production.yaml /app/
 ENV NODE_ENV=production
+USER 65532:65532
 EXPOSE 7007
 CMD ["packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
