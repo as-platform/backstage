@@ -15,13 +15,16 @@ const githubProvider = {
   apiRef: githubAuthApiRef,
 };
 
-const PlatformSignInPage = (props: SignInPageProps) => {
-  const config = useApi(configApiRef);
-  const production =
-    config.getOptionalString('auth.environment') === 'production';
-  const providers = production
+export const signInProviders = (environment?: string) =>
+  environment === 'production'
     ? [githubProvider]
     : ['guest' as const, githubProvider];
+
+const PlatformSignInPage = (props: SignInPageProps) => {
+  const config = useApi(configApiRef);
+  const providers = signInProviders(
+    config.getOptionalString('auth.environment'),
+  );
 
   return <SignInPage {...props} providers={providers} />;
 };

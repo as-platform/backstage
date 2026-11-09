@@ -1,8 +1,8 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
-  it('should render', async () => {
+  it('asks for a GitHub sign-in without a guest option in production', async () => {
     process.env = {
       NODE_ENV: 'test',
       APP_CONFIG: [
@@ -10,19 +10,16 @@ describe('App', () => {
           data: {
             app: { title: 'Test' },
             backend: { baseUrl: 'http://localhost:7007' },
-            techdocs: {
-              storageUrl: 'http://localhost:7007/api/techdocs/static/docs',
-            },
+            auth: { environment: 'production' },
           },
           context: 'test',
         },
       ] as any,
     };
 
-    const rendered = render(App.createRoot());
+    render(App.createRoot());
 
-    await waitFor(() => {
-      expect(rendered.baseElement).toBeInTheDocument();
-    });
+    expect(await screen.findByText('Sign in using GitHub')).toBeInTheDocument();
+    expect(screen.queryByText(/guest/i)).not.toBeInTheDocument();
   });
 });
