@@ -36,14 +36,18 @@ auth:
 
 catalog:
   rules:
-    - allow: [Component, System, Group, User, Location, Template]
+    - allow: [Component, System, Location]
   locations:
     - type: url
       target: https://github.com/as-platform/k3s/blob/main/catalog/groups.yaml
+      rules:
+        - allow: [Group, User]
     - type: url
       target: https://github.com/as-platform/k3s/blob/main/catalog/all.yaml
     - type: url
       target: https://github.com/as-platform/backstage-templates/blob/main/scaffolder/back-go/template.yaml
+      rules:
+        - allow: [Template]
   providers:
     github:
       platform:
