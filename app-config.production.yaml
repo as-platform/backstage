@@ -48,6 +48,18 @@ catalog:
       target: https://github.com/as-platform/backstage-templates/blob/main/scaffolder/back-go/template.yaml
       rules:
         - allow: [Template]
+    - type: url
+      target: https://github.com/as-platform/backstage-templates/blob/main/scaffolder/back-python/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://github.com/as-platform/backstage-templates/blob/main/scaffolder/front-react/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://github.com/as-platform/backstage-templates/blob/main/scaffolder/monorepo/template.yaml
+      rules:
+        - allow: [Template]
   providers:
     github:
       platform:
