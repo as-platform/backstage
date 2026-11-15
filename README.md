@@ -13,10 +13,10 @@ Backstage is the entry point of the platform flow: a developer picks a template 
 Running in the cluster since 2026-11-09. Checked by hand on that day:
 
 - sign-in with GitHub for the portal owner, guest sign-in is not available in production;
-- the catalog loads [`k3s`](https://github.com/as-platform/k3s) (`catalog/`), the `back-go` template from [`backstage-templates`](https://github.com/as-platform/backstage-templates) and every `catalog-info.yaml` found at the root of the organization repositories;
+- the catalog loads [`k3s`](https://github.com/as-platform/k3s) (`catalog/`), the `back-go`, `back-python`, `front-react` and `monorepo` templates from [`backstage-templates`](https://github.com/as-platform/backstage-templates) and every `catalog-info.yaml` found at the root of the organization repositories;
 - the `back-go` template creates a private repository, gives it access to the runner group, registers the component and, with the deploy option, opens a pull request in `k3s`.
 
-Not checked: how the portal behaves over a longer time, the template dry run, other templates (only `back-go` exists).
+Not checked: how the portal behaves over a longer time, the template dry run. The `back-python`, `front-react` and `monorepo` templates are registered but have not been run from the portal yet.
 
 ## What is in the repository
 

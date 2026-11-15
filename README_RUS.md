@@ -13,10 +13,10 @@ Backstage — точка входа в сценарий платформы: ра
 Работает в кластере с 2026-11-09. В тот день вручную проверено:
 
 - вход через GitHub для владельца портала, гостевой вход в production недоступен;
-- каталог загружает [`k3s`](https://github.com/as-platform/k3s) (`catalog/`), шаблон `back-go` из [`backstage-templates`](https://github.com/as-platform/backstage-templates) и все `catalog-info.yaml` из корня репозиториев организации;
+- каталог загружает [`k3s`](https://github.com/as-platform/k3s) (`catalog/`), шаблоны `back-go`, `back-python`, `front-react` и `monorepo` из [`backstage-templates`](https://github.com/as-platform/backstage-templates) и все `catalog-info.yaml` из корня репозиториев организации;
 - шаблон `back-go` создаёт приватный репозиторий, даёт ему доступ к runner group, регистрирует компонент и, с опцией деплоя, открывает pull request в `k3s`.
 
-Не проверено: поведение портала на длинной дистанции, dry run шаблона, другие шаблоны (есть только `back-go`).
+Не проверено: поведение портала на длинной дистанции, dry run шаблона. Шаблоны `back-python`, `front-react` и `monorepo` зарегистрированы, но из портала ещё не запускались.
 
 ## Что есть в репозитории
 
