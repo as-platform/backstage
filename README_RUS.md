@@ -37,7 +37,7 @@ auth:
 
 ## Конфигурация в кластере
 
-Deployment, Postgres, Ingress и SealedSecret `backstage` лежат в [`k3s`](https://github.com/as-platform/k3s) (`infra/backstage`). Переменные окружения, которые читает `app-config.production.yaml`:
+Deployment, Postgres, Ingress и ExternalSecret `backstage` лежат в [`k3s`](https://github.com/as-platform/k3s) (`infra/backstage`). Переменные окружения, которые читает `app-config.production.yaml`:
 
 - `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
 - `GITHUB_APP_ID`, `GITHUB_APP_CLIENT_ID`, `GITHUB_APP_CLIENT_SECRET`, `GITHUB_APP_PRIVATE_KEY`

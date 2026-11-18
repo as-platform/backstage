@@ -37,7 +37,7 @@ Checks: `yarn tsc`, `yarn lint:all`, `yarn test:all`.
 
 ## Configuration in the cluster
 
-The Deployment, Postgres, Ingress and the SealedSecret `backstage` live in [`k3s`](https://github.com/as-platform/k3s) (`infra/backstage`). The environment variables read by `app-config.production.yaml`:
+The Deployment, Postgres, Ingress and the ExternalSecret `backstage` live in [`k3s`](https://github.com/as-platform/k3s) (`infra/backstage`). The environment variables read by `app-config.production.yaml`:
 
 - `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
 - `GITHUB_APP_ID`, `GITHUB_APP_CLIENT_ID`, `GITHUB_APP_CLIENT_SECRET`, `GITHUB_APP_PRIVATE_KEY`
